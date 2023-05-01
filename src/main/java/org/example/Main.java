@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) throws UnirestException, ParserConfigurationException, IOException {
     Grid grid = new Grid();
-    System.out.println(grid);
+    System.out.println(grid); 
    }
 
 }
