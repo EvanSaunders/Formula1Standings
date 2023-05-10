@@ -79,6 +79,17 @@ public class Grid {
         }
     }
 
+    Driver getDriver(String driverId){
+        for(int i = 0; i< driverList.size();i++){
+            if(driverId.equals(driverList.get(i).getDriverId())){
+
+                return driverList.get(i);
+            }
+        }
+        return null;
+    }
+
+
     //gets what the api responds with
     private static String readResponse(HttpURLConnection conn) throws IOException {
         StringBuilder response = new StringBuilder();
@@ -126,7 +137,13 @@ public class Grid {
             JSONObject driverObject = driverArray.getJSONObject(i);
             String name = driverObject.getString("driverId");
             if (name.equalsIgnoreCase(driverId)) {
-                return driverObject.getString(info);
+                try{
+                    return driverObject.getString(info);
+                }catch(Exception e){
+                    return "Not Found";
+                }
+
+
             }
         }
         return "fail";

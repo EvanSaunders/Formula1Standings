@@ -8,8 +8,8 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws UnirestException, ParserConfigurationException, IOException {
-    Grid grid = new Grid();
-    System.out.println(grid); 
+    Grid grid = new Grid("2021");
+    System.out.println(grid);
    }
 
 }
