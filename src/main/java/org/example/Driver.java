@@ -8,7 +8,13 @@ public class Driver {
     private String familyName;
     private String dateOfBirth;
     private String nationality;
-    public Driver(String driverId_, String code_, String permanentNumber_, String givenName_, String familyName_, String dateOfBirth_, String nationality_){
+    private String position;
+    private String points;
+    private String wins;
+    private String constructorName;
+    private String constructorNationality;
+    public Driver(String driverId_, String code_, String permanentNumber_, String givenName_, String familyName_, String dateOfBirth_, String nationality_,
+    String position_, String points_, String wins_, String constructorName_, String constructorNationality_){
          driverId = driverId_;
         code = code_;
         permanentNumber = permanentNumber_;
@@ -16,19 +22,14 @@ public class Driver {
         familyName = familyName_;
         dateOfBirth = dateOfBirth_;
         nationality = nationality_;
+        position = position_;
+        points = points_;
+        wins = wins_;
+        constructorName = constructorName_;
+        constructorNationality = constructorNationality_;
     }
 
-    public Driver(String[] allInfoList){
-            driverId = allInfoList[0];
-            code = allInfoList[1];
-            permanentNumber =allInfoList[2];
-            givenName =  allInfoList[3];
-            familyName = allInfoList[4];
-            dateOfBirth = allInfoList[5];
-            nationality = allInfoList[6];
 
-
-    }
 
     public Driver(){
 
@@ -59,7 +60,8 @@ public class Driver {
 
     public String toString(){
         return "Driver Id: " + driverId + "\n Code: " + code + "\n Driver Number: " + permanentNumber + "\n Given Name: " +
-                 givenName + "\n FamilyName: " + familyName + "\n Date Of Birth: "+ dateOfBirth+ "\n Nationality: " + nationality;
+                 givenName + "\n FamilyName: " + familyName + "\n Date Of Birth: "+ dateOfBirth+ "\n Nationality: " + nationality +
+        "\nPosition: " + position + "\nPoints: " + points + "\n Wins: " + wins +"\n Constructor: " + constructorName + "\n Constructor Nationality: " + constructorNationality;
     }
 
 

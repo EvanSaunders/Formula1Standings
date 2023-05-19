@@ -3,7 +3,12 @@ package org.example;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,156 +24,140 @@ public class Grid {
 
     /**
      * Gets the grid for the current year
+     *
      * @throws UnirestException
      * @throws ParserConfigurationException
      * @throws IOException
      */
     public Grid() throws UnirestException, ParserConfigurationException, IOException {
-        this(""+Year.now().getValue());
+        this("" + Year.now().getValue());
     }
 
     /**
      * Gets grid for year specified
+     *
      * @param year gets the grid for this year
      * @throws UnirestException
      * @throws ParserConfigurationException
      * @throws IOException
      */
-    public Grid( String year) throws UnirestException, ParserConfigurationException, IOException {
+    public Grid(String year) throws UnirestException, ParserConfigurationException, IOException {
+        try {
+            // Make the HTTP request and get the XML response
+            URL url = new URL("http://ergast.com/api/f1/" + year + "/driverstandings");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            // Parse the XML response
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(connection.getInputStream());
+
+            // Extract constructor information
+            NodeList driverStandingsList = document.getElementsByTagName("DriverStanding");
 
 
+            for (int i = 0; i < driverStandingsList.getLength(); i++) {
+                Element driverStanding = (Element) driverStandingsList.item(i);
+                Element driver = (Element) driverStanding.getElementsByTagName("Driver").item(0);
 
-        String apiUrl = "http://ergast.com/api/f1/"+ year+ "/drivers.json";
+                String driverId;
+                String code;
+                String permanentNumber;
+                String givenName;
+                String familyName;
+                String dateOfBirth;
+                String nationality;
+                String position;
+                String points;
+                String wins;
 
-        // Open a connection to the API endpoint
-        URL url = new URL(apiUrl);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
+                try {
+                    driverId = driver.getAttribute("driverId");
+                } catch (Exception e) {
+                    driverId = "Not Found";
+                }
 
-        // Read the API response into a String
-        String response = readResponse(conn);
+                try {
+                    code = driver.getAttribute("code");
+                } catch (Exception e) {
+                    code = "Not Found";
+                }
 
-        // Parse the JSON response and extract the driver names
-        ArrayList<String> driverIds = parseDriverId(response);
+                try {
+                    permanentNumber = driver.getElementsByTagName("PermanentNumber").item(0).getTextContent();
+                } catch (Exception e) {
+                    permanentNumber = "Not Found";
+                }
 
-        String[] infoOptions = {"driverId", "code", "permanentNumber", "givenName", "familyName", "dateOfBirth","nationality"};
-        // Print the driver names to the console
-        for (int i = 0; i< driverIds.size(); i++) {
-            String[] driverAllInfo = new String[7];
-            for(int x = 0; x<infoOptions.length;x++){
-                // System.out.println(driverName);
-                String currentDriverInfo = parseDriverInfo(response, driverIds.get(i),infoOptions[x]);
-                driverAllInfo[x] = currentDriverInfo;
-            }
+                try {
+                    givenName = driver.getElementsByTagName("GivenName").item(0).getTextContent();
+                } catch (Exception e) {
+                    givenName = "Not Found";
+                }
 
+                try {
+                    familyName = driver.getElementsByTagName("FamilyName").item(0).getTextContent();
+                } catch (Exception e) {
+                    familyName = "Not Found";
+                }
 
-            Driver currentDriver = new Driver(driverAllInfo);
-            driverList.add(currentDriver);
-        }
-    }
+                try {
+                    dateOfBirth = driver.getElementsByTagName("DateOfBirth").item(0).getTextContent();
+                } catch (Exception e) {
+                    dateOfBirth = "Not Found";
+                }
 
-    /**
-     * gets a driver from ID
-     * @param driverId
-     * @return
-     */
-    Driver getDriver(String driverId){
-        for(int i = 0; i< driverList.size();i++){
-            if(driverId.equals(driverList.get(i).getDriverId())){
+                try {
+                    nationality = driver.getElementsByTagName("Nationality").item(0).getTextContent();
+                } catch (Exception e) {
+                    nationality = "Not Found";
+                }
 
-                return driverList.get(i);
-            }
-        }
-        return null;
-    }
+                try {
+                    position = driverStanding.getAttribute("position");
+                } catch (Exception e) {
+                    position = "Not Found";
+                }
 
+                try {
+                    points = driverStanding.getAttribute("points");
+                } catch (Exception e) {
+                    points = "Not Found";
+                }
 
-    /**
-     * gets what the api responds with
-     */
-    private static String readResponse(HttpURLConnection conn) throws IOException {
-        StringBuilder response = new StringBuilder();
-
-        int responseCode = conn.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            InputStream inputStream = conn.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line;
-            while ((line =  bufferedReader.readLine()) != null) {
-                response.append(line);
-            }
-        } else {
-            throw new RuntimeException("HTTP response code: " + responseCode);
-        }
-        return response.toString();
-    }
-
-    /**
-     * gets all the ids of the drivers
-     * @param response
-     * @return
-     */
-    private static ArrayList<String> parseDriverId(String response) {
-        ArrayList<String> driverNames = new ArrayList<>();
-
-        JSONObject rootObject = new JSONObject(response);
-        JSONObject mrDataObject = rootObject.getJSONObject("MRData");
-        JSONObject driverTableObject = mrDataObject.getJSONObject("DriverTable");
-        JSONArray driverArray = driverTableObject.getJSONArray("Drivers");
-
-        for (int i = 0; i < driverArray.length(); i++) {
-            JSONObject driverObject = driverArray.getJSONObject(i);
-            String driverName = driverObject.getString("driverId");
-            driverNames.add(driverName);
-        }
-
-        return driverNames;
-    }
-
-    /**
-     * gets the info of all drivers from a string of ids
-     * @param response
-     * @param driverId
-     * @param info
-     * @return
-     */
-    private static String parseDriverInfo(String response, String driverId, String info) {
-        //ArrayList<String> driverNames = new ArrayList<>();
-
-        JSONObject rootObject = new JSONObject(response);
-        JSONObject mrDataObject = rootObject.getJSONObject("MRData");
-        JSONObject driverTableObject = mrDataObject.getJSONObject("DriverTable");
-        JSONArray driverArray = driverTableObject.getJSONArray("Drivers");
-
-        for (int i = 0; i < driverArray.length(); i++) {
-            JSONObject driverObject = driverArray.getJSONObject(i);
-            String name = driverObject.getString("driverId");
-            if (name.equalsIgnoreCase(driverId)) {
-                try{
-                    return driverObject.getString(info);
-                }catch(Exception e){
-                    return "Not Found";
+                try {
+                    wins = driverStanding.getAttribute("wins");
+                } catch (Exception e) {
+                    wins = "Not Found";
                 }
 
 
+                Element constructor = (Element) driverStanding.getElementsByTagName("Constructor").item(0);
+
+                String constructorName = constructor.getElementsByTagName("Name").item(0).getTextContent();
+                String constructorNationality = constructor.getElementsByTagName("Nationality").item(0).getTextContent();
+
+                Driver currentDriver = new Driver(driverId, code, permanentNumber, givenName, familyName, dateOfBirth, nationality,
+                        position, points, wins, constructorName, constructorNationality);
+                driverList.add(currentDriver);
             }
-        }
-        return "fail";
-        }
 
 
-    /**
-     * toString
-     * @return string of all driver info
-     */
-    public String toString(){
+            connection.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public String toString() {
         String string = "";
-        for(int i = 0; i< driverList.size();i++){
-            string += driverList.get(i)+"\n";
+        for (int i = 0; i < driverList.size(); i++) {
+            string += driverList.get(i) + "\n";
         }
 
         return string;
     }
-
-    }
+}
 
