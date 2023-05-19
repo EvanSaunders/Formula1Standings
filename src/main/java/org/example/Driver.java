@@ -6,6 +6,7 @@ public class Driver {
     private  String permanentNumber;
     private String givenName;
     private String familyName;
+    private String dateOfBirth;
     private String nationality;
     public Driver(String driverId_, String code_, String permanentNumber_, String givenName_, String familyName_, String dateOfBirth_, String nationality_){
          driverId = driverId_;
@@ -13,6 +14,7 @@ public class Driver {
         permanentNumber = permanentNumber_;
         givenName = givenName_;
         familyName = familyName_;
+        dateOfBirth = dateOfBirth_;
         nationality = nationality_;
     }
 
@@ -22,7 +24,9 @@ public class Driver {
             permanentNumber =allInfoList[2];
             givenName =  allInfoList[3];
             familyName = allInfoList[4];
-            nationality = allInfoList[5];
+            dateOfBirth = allInfoList[5];
+            nationality = allInfoList[6];
+
 
     }
 
@@ -35,33 +39,27 @@ public class Driver {
     }
 
 
-
-    public void setDriverId(String driverId_){
-        driverId = driverId_;
+    public String getDriverCode(String driverId_){
+        return code;
     }
 
-    public void setDriverCode(String driverId_){
-        driverId = driverId_;
+    public String getDriverPermanentNumber(String driverId_){
+        return permanentNumber;
+    }
+    public String getDriverGivenName(String driverId_){
+        return givenName;
     }
 
-    public void setDriverPermanentNumber(String driverId_){
-        driverId = driverId_;
+    public String getDriverFamilyName(String driverId_){
+        return familyName;
     }
-    public void setDriverGivenName(String driverId_){
-        driverId = driverId_;
-    }
-
-    public void setDriverFamilyName(String driverId_){
-        driverId = driverId_;
-    }
-
-    public void setDriverNationality(String driverId_){
-        driverId = driverId_;
+    public String setDriverNationality(String driverId_){
+        return nationality;
     }
 
     public String toString(){
         return "Driver Id: " + driverId + "\n Code: " + code + "\n Driver Number: " + permanentNumber + "\n Given Name: " +
-                 givenName + "\n FamilyName: " + familyName + "\n Nationality: " + nationality;
+                 givenName + "\n FamilyName: " + familyName + "\n Date Of Birth: "+ dateOfBirth+ "\n Nationality: " + nationality;
     }
 
 

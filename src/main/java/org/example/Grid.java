@@ -16,38 +16,24 @@ import java.time.Year;
 
 public class Grid {
     ArrayList<Driver> driverList = new ArrayList<Driver>();
+
+    /**
+     * Gets the grid for the current year
+     * @throws UnirestException
+     * @throws ParserConfigurationException
+     * @throws IOException
+     */
     public Grid() throws UnirestException, ParserConfigurationException, IOException {
-        int year = Year.now().getValue();
-
-
-        String apiUrl = "http://ergast.com/api/f1/"+ year+ "/drivers.json";
-
-        // Open a connection to the API endpoint
-        URL url = new URL(apiUrl);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-
-        // Read the API response into a String
-        String response = readResponse(conn);
-
-        // Parse the JSON response and extract the driver names
-        ArrayList<String> driverIds = parseDriverId(response);
-
-        String[] infoOptions = {"driverId", "code", "permanentNumber", "givenName", "familyName", "dateOfBirth","nationality"};
-        // Print the driver names to the console
-        for (int i = 0; i< driverIds.size(); i++) {
-            String[] driverAllInfo = new String[7];
-            for(int x = 0; x<infoOptions.length;x++){
-               // System.out.println(driverName);
-                String currentDriverInfo = parseDriverInfo(response, driverIds.get(i),infoOptions[x]);
-                driverAllInfo[x] = currentDriverInfo;
-            }
-            Driver currentDriver = new Driver(driverAllInfo);
-           driverList.add(currentDriver);
-        }
+        this(""+Year.now().getValue());
     }
 
-    // TODO not every year has code, permanentNumber
+    /**
+     * Gets grid for year specified
+     * @param year gets the grid for this year
+     * @throws UnirestException
+     * @throws ParserConfigurationException
+     * @throws IOException
+     */
     public Grid( String year) throws UnirestException, ParserConfigurationException, IOException {
 
 
@@ -74,11 +60,18 @@ public class Grid {
                 String currentDriverInfo = parseDriverInfo(response, driverIds.get(i),infoOptions[x]);
                 driverAllInfo[x] = currentDriverInfo;
             }
+
+
             Driver currentDriver = new Driver(driverAllInfo);
             driverList.add(currentDriver);
         }
     }
 
+    /**
+     * gets a driver from ID
+     * @param driverId
+     * @return
+     */
     Driver getDriver(String driverId){
         for(int i = 0; i< driverList.size();i++){
             if(driverId.equals(driverList.get(i).getDriverId())){
@@ -90,7 +83,9 @@ public class Grid {
     }
 
 
-    //gets what the api responds with
+    /**
+     * gets what the api responds with
+     */
     private static String readResponse(HttpURLConnection conn) throws IOException {
         StringBuilder response = new StringBuilder();
 
@@ -108,6 +103,11 @@ public class Grid {
         return response.toString();
     }
 
+    /**
+     * gets all the ids of the drivers
+     * @param response
+     * @return
+     */
     private static ArrayList<String> parseDriverId(String response) {
         ArrayList<String> driverNames = new ArrayList<>();
 
@@ -125,6 +125,13 @@ public class Grid {
         return driverNames;
     }
 
+    /**
+     * gets the info of all drivers from a string of ids
+     * @param response
+     * @param driverId
+     * @param info
+     * @return
+     */
     private static String parseDriverInfo(String response, String driverId, String info) {
         //ArrayList<String> driverNames = new ArrayList<>();
 
@@ -147,7 +154,13 @@ public class Grid {
             }
         }
         return "fail";
-    }
+        }
+
+
+    /**
+     * toString
+     * @return string of all driver info
+     */
     public String toString(){
         String string = "";
         for(int i = 0; i< driverList.size();i++){
