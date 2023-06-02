@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Driver;
 
 public class Driver {
     private String driverId;

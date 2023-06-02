@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Driver;
 
 public class RaceCalandar {
     //create array or queue of RaceWeeks generated from F1 API

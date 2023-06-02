@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Driver;
 
 public class WeatherForecast {
 	//Get time and dates from a RaceWeek, then give precipitation, temperature, 

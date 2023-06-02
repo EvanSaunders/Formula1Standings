@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Driver;
 
 public class RaceWeek {
 	private String country;
