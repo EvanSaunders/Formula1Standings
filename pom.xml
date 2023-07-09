@@ -1,171 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE file distributed with this work for additional information regarding copyright ownership. The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License athttp://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. -->
-
-        <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-
-    <parent>
-
-    <groupId>org.apache.maven.wrapper</groupId>
-
-    <artifactId>maven-wrapper-parent</artifactId>
-
-    <version>3.2.0</version>
-
-</parent>
-
-    <artifactId>maven-wrapper</artifactId>
-
-    <name>Maven Wrapper Jar</name>
-
-    <description>Maven Wrapper Jar download, installs and launches installed target Maven distribution as part of Maven Wrapper scripts run.</description>
-
+    <groupId>com.example</groupId>
+    <artifactId>Formula1Standings</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
 
     <properties>
+        <java.version>11</java.version>
+        <spring-boot.version>2.5.4</spring-boot.version>
+        <thymeleaf.version>3.0.12.RELEASE</thymeleaf.version>
+    </properties>
 
-    <junit.version>5.9.2</junit.version>
+    <dependencies>
+        <!-- Spring Boot Starter Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
 
-    <mockito.version>4.11.0</mockito.version>
+        <!-- Thymeleaf -->
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>${thymeleaf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring5</artifactId>
+            <version>${thymeleaf.version}</version>
+        </dependency>
 
-</properties>
+        <!-- Additional dependencies for your project -->
+        <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>1.4.9</version>
+        </dependency>
 
+        <!-- Other dependencies -->
+
+    </dependencies>
 
     <dependencyManagement>
-
-
-    <dependencies>
-
-
-    <dependency>
-
-    <groupId>org.junit</groupId>
-
-    <artifactId>junit-bom</artifactId>
-
-    <version>${junit.version}</version>
-
-    <type>pom</type>
-
-    <scope>import</scope>
-
-</dependency>
-
-</dependencies>
-
-</dependencyManagement>
-
-
-    <dependencies>
-
-
-    <dependency>
-
-    <groupId>org.hamcrest</groupId>
-
-    <artifactId>hamcrest-core</artifactId>
-
-    <version>2.2</version>
-
-    <scope>test</scope>
-
-</dependency>
-
-
-    <dependency>
-
-    <groupId>org.junit.jupiter</groupId>
-
-    <artifactId>junit-jupiter</artifactId>
-
-    <scope>test</scope>
-
-</dependency>
-
-
-    <dependency>
-
-    <groupId>org.mockito</groupId>
-
-    <artifactId>mockito-core</artifactId>
-
-    <version>${mockito.version}</version>
-
-    <scope>test</scope>
-
-</dependency>
-    <dependency>
-        <groupId>com.mashape.unirest</groupId>
-        <artifactId>unirest-java</artifactId>
-        <version>1.4.9</version>
-    </dependency>
-    <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.12</version>
-        <scope>test</scope>
-    </dependency>
-
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-        <version>3.1.0</version>
-    </dependency>
-
-</dependencies>
-
-
-    <profiles>
-
-
-    <profile>
-
-    <id>apache-release</id>
-
+        <dependencies>
+            <!-- JUnit BOM -->
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>5.9.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
-
-
-    <plugins>
-
-
-    <plugin>
-
-    <artifactId>maven-assembly-plugin</artifactId>
-
-
-    <executions>
-
-
-    <execution>
-
-    <id>source-release-assembly</id>
-
-
-    <configuration>
-
-    <skipAssembly>false</skipAssembly>
-
-    <runOnlyAtExecutionRoot>false</runOnlyAtExecutionRoot>
-
-    <archiveBaseDirectory>../</archiveBaseDirectory>
-
-</configuration>
-
-</execution>
-
-</executions>
-
-</plugin>
-
-</plugins>
-
-</build>
-
-</profile>
-
-</profiles>
-
+        <plugins>
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

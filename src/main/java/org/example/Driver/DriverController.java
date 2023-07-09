@@ -21,6 +21,12 @@ public class DriverController {
 
         this.driverService = driverService;
     }
+/**
+    @GetMapping("/")
+    public String index(){
+        return "index";
+    }
+**/
 
     @GetMapping(path = "{year}")
     public String printGrid(@PathVariable("year") String year) throws UnirestException, ParserConfigurationException, IOException {
