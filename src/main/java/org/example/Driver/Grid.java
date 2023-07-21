@@ -160,6 +160,7 @@ public class Grid {
         String string = "";
         for (int i = 0; i < driverList.size(); i++) {
             string += driverList.get(i) + "\n";
+
         }
 
         return string;

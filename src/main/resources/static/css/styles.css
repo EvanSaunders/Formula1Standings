@@ -5,7 +5,7 @@ body{
 .banner {
   background-color: #1c1c1c;
   padding: 10px;
-  padding-left: 100px;
+
   text-align: left;
   position: fixed;
     top: 0;
@@ -25,6 +25,29 @@ body{
      text-transform: uppercase;
      font-style:italic;
 }
+
+.basicText{
+ color: white;
+  font-size: 20px;
+  margin: 0;
+   font-family: Arial, sans-serif;
+
+     font-weight: 300px;
+     letter-spacing: 8px;
+     text-transform: uppercase;
+     font-style:italic;
+}
+
+.yearSelect{
+    margin: 0;
+        display: flex;
+        flex-direction: column; /* Arrange the items in a column */
+        align-items: center; /* Center horizontally */
+        justify-content: center; /* Center vertically */
+        min-height: 50vh;
+}
+
+
 
 footer{
      background-color: black;

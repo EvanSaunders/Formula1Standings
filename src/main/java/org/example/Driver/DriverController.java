@@ -3,17 +3,15 @@ package org.example.Driver;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
 @RestController
-@RequestMapping(path = "/driver")
+@RequestMapping(path = "/standings")
 public class DriverController {
+    @Autowired
     private final DriverService driverService;
 
     @Autowired
@@ -28,11 +26,11 @@ public class DriverController {
     }
 **/
 
-    @GetMapping(path = "{year}")
-    public String printGrid(@PathVariable("year") String year) throws UnirestException, ParserConfigurationException, IOException {
-
-        return driverService.printGrid(year);
-    }
+@GetMapping(path = "/displayStandingsByYear")
+@ResponseBody
+public String printGrid(@RequestParam("year") String year) throws UnirestException, ParserConfigurationException, IOException {
+    return driverService.printGrid(year);
+}
 
     @GetMapping(path = "{year}/{driverId}")
     public String printDriverInYear(@PathVariable("year") String year, @PathVariable("driverId") String driverId) throws UnirestException, ParserConfigurationException, IOException {
