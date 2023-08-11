@@ -10,14 +10,14 @@
     </header>
 
 </div>
-<div class = "yearSelect">
-    <h1 class="basicText">Choose A Year to Display Standings</h1>
+
+<div class = "centerColumn">
+    <h1 class="basicText">Choose A Way to display</h1>
     <br>
-    <form action="standings/displayStandingsByYear" method="get">
-        <label class = "basicText" for="fname">Year: </label>
-        <input type="number" id="fname" name="year" min="1950" max = "2023">
-        <input type="submit" value="Submit">
-    </form>
+
+    <button class="button" onclick="window.location.href='displayByYear.html'">Display Standings by Year</button>
+
+    <button class="button" onclick="window.location.href='/'"> Home</button>
 </div>
 
 

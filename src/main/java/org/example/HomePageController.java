@@ -9,6 +9,11 @@ public class HomePageController {
 
     @GetMapping("/")
     public String homePage() {
-        return "homePage";
+        return "homePage.html";
+    }
+
+    @GetMapping("/displayByYear.html")
+    public String displayByYear() {
+        return "displayByYear"; // This should match the Thymeleaf template name
     }
 }
