@@ -32,8 +32,8 @@ public String printGrid(@RequestParam("year") String year) throws UnirestExcepti
     return driverService.printGrid(year);
 }
 
-    @GetMapping(path = "{year}/{driverId}")
-    public String printDriverInYear(@PathVariable("year") String year, @PathVariable("driverId") String driverId) throws UnirestException, ParserConfigurationException, IOException {
+    @GetMapping(path = "/displayStandingsByYearAndDriver")
+    public String printDriverInYear(@RequestParam("year") String year, @RequestParam("driverId") String driverId) throws UnirestException, ParserConfigurationException, IOException {
 
         return driverService.printDriverInYear(year, driverId);
     }
