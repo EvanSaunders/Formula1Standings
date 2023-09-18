@@ -13,7 +13,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 @SpringBootApplication
 public class Main {
-
     public static void main(String[] args) throws UnirestException, ParserConfigurationException, IOException {
         SpringApplication.run(Main.class, args);
 
