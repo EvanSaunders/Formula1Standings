@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class HomePageController {
 
-    @GetMapping("/Formula1Standings")
+    @GetMapping("/")
     public String homePage() {
         return "homePage";
     }
