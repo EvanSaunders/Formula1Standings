@@ -29,7 +29,7 @@ public class DriverController {
 @GetMapping(path = "/displayStandingsByYear")
 @ResponseBody
 public String printGrid(@RequestParam("year") String year) throws UnirestException, ParserConfigurationException, IOException {
-    return driverService.printGrid(year);
+    return driverService.generateDriverStatsHTML(year);
 }
 
     @GetMapping(path = "/displayStandingsByYearAndDriver")

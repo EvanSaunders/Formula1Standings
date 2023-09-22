@@ -14,8 +14,8 @@ public class Driver {
     private String constructorName;
     private String constructorNationality;
     public Driver(String driverId_, String code_, String permanentNumber_, String givenName_, String familyName_, String dateOfBirth_, String nationality_,
-    String position_, String points_, String wins_, String constructorName_, String constructorNationality_){
-         driverId = driverId_;
+                  String position_, String points_, String wins_, String constructorName_, String constructorNationality_){
+        driverId = driverId_;
         code = code_;
         permanentNumber = permanentNumber_;
         givenName = givenName_;
@@ -35,33 +35,57 @@ public class Driver {
 
     }
 
-    public String getDriverId(){
+    public String getId(){
         return driverId;
     }
 
 
-    public String getDriverCode(String driverId_){
+    public String getCode(){
         return code;
     }
 
-    public String getDriverPermanentNumber(String driverId_){
+    public String getPermanentNumber(){
         return permanentNumber;
     }
-    public String getDriverGivenName(String driverId_){
+    public String getGivenName(){
         return givenName;
     }
 
-    public String getDriverFamilyName(String driverId_){
+    public String getFamilyName(){
         return familyName;
     }
-    public String setDriverNationality(String driverId_){
+
+    public String getDateOfBirth(){
+        return dateOfBirth;
+    }
+    public String getNationality(){
         return nationality;
     }
 
+    public String getPosition(){
+        return position;
+    }
+
+    public String getPoints(){
+        return points;
+    }
+
+    public String getWins(){
+        return wins;
+    }
+
+    public String getConstructor(){
+        return constructorName;
+    }
+    public String getConstructorNationality(){
+        return constructorNationality;
+    }
+
+
     public String toString(){
         return "Driver Id: " + driverId + "\n Code: " + code + "\n Driver Number: " + permanentNumber + "\n Given Name: " +
-                 givenName + "\n FamilyName: " + familyName + "\n Date Of Birth: "+ dateOfBirth+ "\n Nationality: " + nationality +
-        "\nPosition: " + position + "\nPoints: " + points + "\n Wins: " + wins +"\n Constructor: " + constructorName + "\n Constructor Nationality: " + constructorNationality;
+                givenName + "\n FamilyName: " + familyName + "\n Date Of Birth: "+ dateOfBirth+ "\n Nationality: " + nationality +
+                "\nPosition: " + position + "\nPoints: " + points + "\n Wins: " + wins +"\n Constructor: " + constructorName + "\n Constructor Nationality: " + constructorNationality;
     }
 
 

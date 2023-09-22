@@ -145,9 +145,14 @@ public class Grid {
         }
     }
 
+    public ArrayList getDrivers(){
+        return driverList;
+    }
+
+
     public Driver getDriver(String driverId){
         for( int i = 0; i< driverList.size(); i++){
-            if(driverId.compareTo(driverList.get(i).getDriverId())==0){
+            if(driverId.compareTo(driverList.get(i).getId())==0){
                 return driverList.get(i);
             }
         }

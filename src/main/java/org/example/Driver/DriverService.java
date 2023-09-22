@@ -1,17 +1,83 @@
 package org.example.Driver;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.List;
+
 //The point of services are to seperate long complicated code from the controller
 @Service
 public class DriverService {
     public String printGrid(String year) throws UnirestException, ParserConfigurationException, IOException {
         Grid grid = new Grid(year);
         return grid.toString();
+    }
+    // takes the year and gets the drivers and puts formats them into an html page then returns it to DriverController as a string
+    public String generateDriverStatsHTML(String year) throws UnirestException, ParserConfigurationException, IOException {
+        // Create a Grid object and fetch driver information
+        Grid grid = new Grid(year);
+        List<Driver> drivers = grid.getDrivers(); // Assuming you have a method to get the list of drivers
+
+        // Create an HTML StringBuilder to build the HTML content
+        StringBuilder htmlBuilder = new StringBuilder();
+
+        // Load the HTML template
+        String template = "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "    <title>F1 Driver Stats</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "<h1>F1 Driver Stats for Year: [YEAR]</h1>\n" +
+                "<table>\n" +
+                "    <tr>\n" +
+                "        <th>Driver ID</th>\n" +
+                "        <th>Code</th>\n" +
+                "        <th>Driver Number</th>\n" +
+                "        <th>Given Name</th>\n" +
+                "        <th>Family Name</th>\n" +
+                "        <th>Date Of Birth</th>\n" +
+                "        <th>Nationality</th>\n" +
+                "        <th>Position</th>\n" +
+                "        <th>Points</th>\n" +
+                "        <th>Wins</th>\n" +
+                "        <th>Constructor</th>\n" +
+                "        <th>Constructor Nationality</th>\n" +
+                "    </tr>\n" +
+                "    [DRIVER_DATA]\n" +
+                "</table>\n" +
+                "</body>\n" +
+                "</html>\n";
+
+        // Replace placeholders with actual data
+        template = template.replace("[YEAR]", year);
+
+        StringBuilder driverRows = new StringBuilder();
+        for (Driver driver : drivers) {
+            String row = "<tr>" +
+                    "<td>" + driver.getId() + "</td>" +
+                    "<td>" + driver.getCode() + "</td>" +
+                    "<td>" + driver.getPermanentNumber() + "</td>" +
+                    "<td>" + driver.getGivenName() + "</td>" +
+                    "<td>" + driver.getFamilyName() + "</td>" +
+                    "<td>" + driver.getDateOfBirth() + "</td>" +
+                    "<td>" + driver.getNationality() + "</td>" +
+                    "<td>" + driver.getPosition() + "</td>" +
+                    "<td>" + driver.getPoints() + "</td>" +
+                    "<td>" + driver.getWins() + "</td>" +
+                    "<td>" + driver.getConstructor() + "</td>" +
+                    "<td>" + driver.getConstructorNationality() + "</td>" +
+                    "</tr>";
+            driverRows.append(row);
+        }
+        template = template.replace("[DRIVER_DATA]", driverRows.toString());
+
+        // Set the final HTML content
+        htmlBuilder.append(template);
+
+        return htmlBuilder.toString();
     }
     public String printDriverInYear(String year, String driverId) throws UnirestException, ParserConfigurationException, IOException {
         Grid grid = new Grid(year);
