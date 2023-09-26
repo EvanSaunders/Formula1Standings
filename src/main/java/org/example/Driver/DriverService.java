@@ -168,6 +168,69 @@ public class DriverService {
 
         //return driver.toString();
     }
+    public String generateDisplayCircuitsHTML(String year) throws UnirestException, ParserConfigurationException, IOException {
+        // Create a Grid object and fetch driver information
+        RaceCalendar raceCalendar = new RaceCalendar(year);
+        List<Circuit> circuits = raceCalendar.getCircuits(); // Assuming you have a method to get the list of drivers
+
+        // Create an HTML StringBuilder to build the HTML content
+        StringBuilder htmlBuilder = new StringBuilder();
+
+        // Load the HTML template
+        String template = "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "    <title>F1 Calendar</title>\n" +
+                "    <style>\n" +
+                "        table {\n" +
+                "            width: 100%; /* Make the table span the full width of the container */\n" +
+                "            border-collapse: collapse; /* Remove spacing between table cells */\n" +
+                "        }\n" +
+                "        th, td {\n" +
+                "            padding: 8px; /* Add padding to each cell for spacing */\n" +
+                "            text-align: center; /* Center-align table data */\n" +
+                "        }\n" +
+                "    </style>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "<h1>F1 Circuits for Year: [YEAR]</h1>\n" +
+                "<table>\n" +
+                "    <tr>\n" +
+                "        <th>Circuit Name</th>\n" +
+                "        <th>Locality</th>\n" +
+                "        <th>Country</th>\n" +
+                "        <th>Circuit Id</th>\n" +
+                "        <th>Latitude</th>\n" +
+                "        <th>Longitude</th>\n" +
+                "    </tr>\n" +
+                "    [CIRCUIT_DATA]\n" +
+                "</table>\n" +
+                "</body>\n" +
+                "</html>\n";
+
+        // Replace placeholders with actual data
+        template = template.replace("[YEAR]", year);
+
+        StringBuilder circuitRows = new StringBuilder();
+        for (Circuit circuit : circuits) {
+            String row = "<tr>" +
+                    "<td>" + circuit.getName() + "</td>" +
+                    "<td>" + circuit.getLocality() + "</td>" +
+                    "<td>" + circuit.getCountry() + "</td>" +
+                    "<td>" + circuit.getId() + "</td>" +
+                    "<td>" + circuit.getLat() + "</td>" +
+                    "<td>" + circuit.getLon() + "</td>" +
+                    "</tr>";
+            circuitRows.append(row);
+        }
+        template = template.replace("[CIRCUIT_DATA]", circuitRows.toString());
+
+        // Set the final HTML content
+        htmlBuilder.append(template);
+
+        return htmlBuilder.toString();
+    }
+
 
 
 

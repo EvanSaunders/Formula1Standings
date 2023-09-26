@@ -22,4 +22,10 @@ public class HomePageController {
     public String displayByYearAndDriver() {
         return "displayByYearAndDriver"; // This should match the Thymeleaf template name
     }
+
+    @GetMapping("/displayCircuits.html")
+    public String displayCircuits() {
+        return "displayCircuits"; // This should match the Thymeleaf template name
+    }
+
 }

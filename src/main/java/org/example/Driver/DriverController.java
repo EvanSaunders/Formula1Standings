@@ -41,7 +41,14 @@ public String printGrid(@RequestParam("year") String year) throws UnirestExcepti
 
         return driverService.generateDisplayByYearAndDriverHTML(year, driverId);
     }
-
+    @GetMapping(path = "/displayCircuits")
+    @ResponseBody
+    public String printCircuits(@RequestParam("year") String year) throws UnirestException, ParserConfigurationException, IOException {
+        if(year==""){
+            return driverService.generateDisplayCircuitsHTML("" + Year.now().getValue());
+        }
+        return driverService.generateDisplayCircuitsHTML(year);
+    }
 }
 
 
