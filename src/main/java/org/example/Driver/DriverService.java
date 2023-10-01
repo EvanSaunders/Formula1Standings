@@ -198,8 +198,8 @@ public class DriverService {
                 "    <tr>\n" +
                 "        <th>Circuit Name</th>\n" +
                 "        <th>Locality</th>\n" +
+                "        <th>Flag</th>\n" +
                 "        <th>Country</th>\n" +
-                "        <th>Circuit Id</th>\n" +
                 "        <th>Latitude</th>\n" +
                 "        <th>Longitude</th>\n" +
                 "    </tr>\n" +
@@ -216,8 +216,8 @@ public class DriverService {
             String row = "<tr>" +
                     "<td>" + circuit.getName() + "</td>" +
                     "<td>" + circuit.getLocality() + "</td>" +
+                    "<td><img src="+"https://flagsapi.com/"+ circuit.getCountryCode() +"/flat/64.png></td>"+
                     "<td>" + circuit.getCountry() + "</td>" +
-                    "<td>" + circuit.getId() + "</td>" +
                     "<td>" + circuit.getLat() + "</td>" +
                     "<td>" + circuit.getLon() + "</td>" +
                     "</tr>";
