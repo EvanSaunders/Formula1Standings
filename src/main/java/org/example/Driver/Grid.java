@@ -14,11 +14,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.time.Year;
 
+/**
+ * Class responsible for grabbing information from http://ergast.com/mrd/
+ */
 public class Grid {
     ArrayList<Driver> driverList = new ArrayList<Driver>();
 
     /**
-     * Gets the grid for the current year
+     * Constructor that grabs info for a current year
      *
      * @throws UnirestException
      * @throws ParserConfigurationException
@@ -29,9 +32,9 @@ public class Grid {
     }
 
     /**
-     * Gets grid for year specified
+     * Constructor that grabs info for specific year
      *
-     * @param year gets the grid for this year
+     * @param year gets the grid for specified year
      * @throws UnirestException
      * @throws ParserConfigurationException
      * @throws IOException
@@ -145,11 +148,19 @@ public class Grid {
         }
     }
 
+    /**
+     * returns and ArrayList containing all drivers in year
+     * @return driverList
+     */
     public ArrayList getDrivers(){
         return driverList;
     }
 
-
+    /**
+     * gets a specific driver
+     * @param driverId what driver we are looking for
+     * @return
+     */
     public Driver getDriver(String driverId){
         for( int i = 0; i< driverList.size(); i++){
             if(driverId.compareTo(driverList.get(i).getId())==0){

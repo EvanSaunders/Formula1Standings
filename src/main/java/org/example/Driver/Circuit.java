@@ -3,7 +3,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 
-
 public class Circuit {
     String circuitName;
     String locality;
@@ -44,6 +43,7 @@ public class Circuit {
         return country;
     }
 
+    //Flag API requires the country code, rather than the country, so this handles that
     public String getCountryCode() {
         final Map<String, String> map = new TreeMap<String, String>(String.CASE_INSENSITIVE_ORDER);
 
@@ -122,7 +122,6 @@ public class Circuit {
         map.put("France", "FR");
         map.put("France (European Territory)", "FX");
         map.put("Gabon", "GA");
-
         map.put("Grenada", "GD");
         map.put("Georgia", "GE");
         map.put("French Guyana", "GF");

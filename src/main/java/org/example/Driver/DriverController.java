@@ -9,6 +9,14 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.time.Year;
 
+/**
+ * Controller class for handling requests
+ */
+
+/**
+ * Constructor for DriverController.
+ * Creates a driverService for other functions to use
+ */
 @RestController
 @RequestMapping(path = "/standings")
 public class DriverController {
@@ -20,14 +28,16 @@ public class DriverController {
 
         this.driverService = driverService;
     }
-/**
-    @GetMapping("/")
-    public String index(){
-        return "index";
-    }
-**/
 
-@GetMapping(path = "/displayStandingsByYear")
+    /**
+     * Generates HTML page containing stats for a specific year.
+     * @param year
+     * @return A string containing HTML code
+     * @throws UnirestException
+     * @throws ParserConfigurationException
+     * @throws IOException
+     */
+    @GetMapping(path = "/displayStandingsByYear")
 @ResponseBody
 public String printGrid(@RequestParam("year") String year) throws UnirestException, ParserConfigurationException, IOException {
     if(year==""){
@@ -36,11 +46,29 @@ public String printGrid(@RequestParam("year") String year) throws UnirestExcepti
     return driverService.generateDisplayByYearHTML(year);
 }
 
+    /**
+     * Generates HTML page containing a specific driver stats for a specific year
+     * @param year
+     * @param driverId
+     * @return A string containing HTML code
+     * @throws UnirestException
+     * @throws ParserConfigurationException
+     * @throws IOException
+     */
     @GetMapping(path = "/displayStandingsByYearAndDriver")
     public String printDriverInYear(@RequestParam("year") String year, @RequestParam("driverId") String driverId) throws UnirestException, ParserConfigurationException, IOException {
 
         return driverService.generateDisplayByYearAndDriverHTML(year, driverId);
     }
+
+    /**
+     * Generates HTML page containing circuits information for a specific year
+     * @param year
+     * @return A string containing HTML code
+     * @throws UnirestException
+     * @throws ParserConfigurationException
+     * @throws IOException
+     */
     @GetMapping(path = "/displayCircuits")
     @ResponseBody
     public String printCircuits(@RequestParam("year") String year) throws UnirestException, ParserConfigurationException, IOException {

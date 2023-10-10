@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class HomePageController {
 
+    //Displays the homepage of the program. The starting point for the user.
     @GetMapping("/")
     public String homePage() {
         return "homePage";
     }
 
+    //Displays the corresponding html page. Usually accessed by a button on the home page
     @GetMapping("/displayByYear.html")
     public String displayByYear() {
         return "displayByYear"; // This should match the Thymeleaf template name

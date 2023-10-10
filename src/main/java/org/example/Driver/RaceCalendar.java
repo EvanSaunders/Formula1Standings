@@ -13,12 +13,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.time.Year;
-
+/**
+ * Class responsible for grabbing information from http://ergast.com/mrd/
+ */
 public class RaceCalendar {
     ArrayList<Circuit> circuitList = new ArrayList<Circuit>();
 
     /**
-     * Gets the grid for the current year
+     * Constructor that grabs info for a current year
      *
      * @throws UnirestException
      * @throws ParserConfigurationException
@@ -29,9 +31,9 @@ public class RaceCalendar {
     }
 
     /**
-     * Gets grid for year specified
+     * Constructor that grabs info for specific year
      *
-     * @param year gets the grid for this year
+     * @param year gets the grid for specified year
      * @throws UnirestException
      * @throws ParserConfigurationException
      * @throws IOException
@@ -92,11 +94,19 @@ public class RaceCalendar {
         }
     }
 
+    /**
+     * returns an arrayList containing all circuits in year
+     * @return
+     */
     public ArrayList getCircuits(){
         return circuitList;
     }
 
-
+    /**
+     * returns a specific circuit
+     * @param circuitId
+     * @return
+     */
     public Circuit getCircuit(String circuitId){
         for( int i = 0; i< circuitList.size(); i++){
             if(circuitId.compareTo(circuitList.get(i).getId())==0){

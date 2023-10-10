@@ -7,14 +7,34 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.List;
 
-//The point of services are to seperate long complicated code from the controller
+/**
+ * Service class responsible for generating HTML displays of F1 driver standings and circuits.
+ * It interacts with data sources like the Grid and RaceCalendar to fetch driver and circuit information.
+ */
 @Service
 public class DriverService {
+    /**
+     * prints that stats for drivers in a specific year
+     * Mostly used for debugging
+     * @param year
+     * @return
+     * @throws UnirestException
+     * @throws ParserConfigurationException
+     * @throws IOException
+     */
     public String printGrid(String year) throws UnirestException, ParserConfigurationException, IOException {
         Grid grid = new Grid(year);
         return grid.toString();
     }
-    // takes the year and gets the drivers and puts formats them into an html page then returns it to DriverController as a string
+
+    /**
+     * Generates HTML page containing stats for a specific year.
+     * @param year
+     * @return A string containing HTML code
+     * @throws UnirestException
+     * @throws ParserConfigurationException
+     * @throws IOException
+     */
     public String generateDisplayByYearHTML(String year) throws UnirestException, ParserConfigurationException, IOException {
         // Create a Grid object and fetch driver information
         Grid grid = new Grid(year);
@@ -36,6 +56,22 @@ public class DriverService {
                 "        th, td {\n" +
                 "            padding: 8px; /* Add padding to each cell for spacing */\n" +
                 "            text-align: center; /* Center-align table data */\n" +
+                "            color: white; \n" +
+                "        }\n" +
+                "        tr {\n" +
+                "           border-bottom: 1px solid grey; \n"+
+                "        }\n" +
+                "        body {\n" +
+                "            background-color: #1C1C1C; \n"+
+                "        }\n" +
+                "        h1 {\n" +
+                "            color: #D90511; \n"+
+                "            font-family: Arial, sans-serif; \n"+
+                "            font-weight: 300px; \n"+
+                "            letter-spacing: 8px; \n"+
+                "            text-transform: uppercase; \n"+
+                "            font-style:italic; \n"+
+                "            font-size: 50px; \n"+
                 "        }\n" +
                 "    </style>\n" +
                 "</head>\n" +
@@ -89,6 +125,15 @@ public class DriverService {
 
         return htmlBuilder.toString();
     }
+    /**
+     * Generates HTML page containing a specific driver stats for a specific year
+     * @param year
+     * @param driverId
+     * @return A string containing HTML code
+     * @throws UnirestException
+     * @throws ParserConfigurationException
+     * @throws IOException
+     */
     public String generateDisplayByYearAndDriverHTML(String year, String driverId) throws UnirestException, ParserConfigurationException, IOException {
         // Create a Grid object and fetch driver information
         Grid grid = new Grid(year);
@@ -110,6 +155,22 @@ public class DriverService {
                 "        th, td {\n" +
                 "            padding: 8px; /* Add padding to each cell for spacing */\n" +
                 "            text-align: center; /* Center-align table data */\n" +
+                "            color: white; \n" +
+                "        }\n" +
+                "        tr {\n" +
+                "           border-bottom: 1px solid grey; \n"+
+                "        }\n" +
+                "        body {\n" +
+                "            background-color: #1C1C1C; \n"+
+                "        }\n" +
+                "        h1 {\n" +
+                "            color: #D90511; \n"+
+                "            font-family: Arial, sans-serif; \n"+
+                "            font-weight: 300px; \n"+
+                "            letter-spacing: 8px; \n"+
+                "            text-transform: uppercase; \n"+
+                "            font-style:italic; \n"+
+                "            font-size: 50px; \n"+
                 "        }\n" +
                 "    </style>\n" +
                 "</head>\n" +
@@ -168,6 +229,14 @@ public class DriverService {
 
         //return driver.toString();
     }
+    /**
+     * Generates HTML page containing circuits information for a specific year
+     * @param year
+     * @return A string containing HTML code
+     * @throws UnirestException
+     * @throws ParserConfigurationException
+     * @throws IOException
+     */
     public String generateDisplayCircuitsHTML(String year) throws UnirestException, ParserConfigurationException, IOException {
         // Create a Grid object and fetch driver information
         RaceCalendar raceCalendar = new RaceCalendar(year);
@@ -189,6 +258,22 @@ public class DriverService {
                 "        th, td {\n" +
                 "            padding: 8px; /* Add padding to each cell for spacing */\n" +
                 "            text-align: center; /* Center-align table data */\n" +
+                "            color: white; \n" +
+                "        }\n" +
+                "        tr {\n" +
+                "           border-bottom: 1px solid grey; \n"+
+                "        }\n" +
+                "        body {\n" +
+                "            background-color: #1C1C1C; \n"+
+                "        }\n" +
+                "        h1 {\n" +
+                "            color: #D90511; \n"+
+                "            font-family: Arial, sans-serif; \n"+
+                "            font-weight: 300px; \n"+
+                "            letter-spacing: 8px; \n"+
+                "            text-transform: uppercase; \n"+
+                "            font-style:italic; \n"+
+                "            font-size: 50px; \n"+
                 "        }\n" +
                 "    </style>\n" +
                 "</head>\n" +
